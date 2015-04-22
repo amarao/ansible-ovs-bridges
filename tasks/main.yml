@@ -1,0 +1,13 @@
+---
+- name: Ensure bridges exist
+  openvswitch_bridge: bridge={{item.name}} state=present timeout={{ovs_timeout}}
+  with_items: ovs_bridges
+
+- name: Ensure interface present in the bridge
+  shell: ovs-vsctl add-port {{item.name}} {{item.iface}} --timeout={{ovs_timeout}}
+  register: ovs_result
+  failed_when: ovs_result.rc!= 0 and ovs_result.stderr.find('cannot create a port named {{item.iface}} because a port named {{item.iface}} already exists on bridge {{item.name}}') == -1
+  changed_when: ovs_result.rc == 0
+  with_items: ovs_bridges
+  when: item.iface is defined
+
