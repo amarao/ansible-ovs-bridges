@@ -20,7 +20,7 @@ Role Variables
 
 (iface and ovs_timeout are not mandatory)
 
-Note: this role does not check if interface (iface) exists or not. It's perfectly valid (from OVS point of view) to add non-existing
+Note: this role does not check if interface (iface) exists or not. It's perfectly valid (from OVS point of view) to add non-existing interface to the bridge.
 
 Note2: You shoud be really careful with active interfaces. If you say name:br-ex iface:eth0, you will loose connectivity by high chance.
 
