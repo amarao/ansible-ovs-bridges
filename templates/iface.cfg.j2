@@ -1,3 +1,3 @@
 auto {{item.iface}}
-iface eth0 inet manual
-    pre-up ip link set up eth1
+iface {{item.iface}} inet manual
+    pre-up ip link set up {{item.iface}}
