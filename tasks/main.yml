@@ -11,3 +11,13 @@
   with_items: ovs_bridges
   when: item.iface is defined
 
+- name: Configure interface
+  template: src=iface.cfg.j2 dest=/etc/network/interfaces.d/{{item.iface}}.cfg
+  when: item.iface is defined
+  with_items: ovs_bridges
+
+- name: Bringing up interface
+  shell: ip link set up dev {{item.iface}}
+  when: item.iface is defined
+  with_items: ovs_bridges
+  changed_when: false
